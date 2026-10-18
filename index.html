@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你好, Git</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    max-width: 640px;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+  }
+  h1 { color: #24292f; font-size: 32px; margin-bottom: 8px; }
+  .subtitle { color: #57606a; font-size: 14px; margin-bottom: 28px; }
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    font-size: 13px;
+    color: #57606a;
+  }
+  .flow .node {
+    background: #ddf4ff;
+    border: 1px solid #54aeff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #0969da;
+    font-weight: 600;
+  }
+  .content-box {
+    background: #fff8c5;
+    border: 1px solid #d4a72c;
+    border-radius: 10px;
+    padding: 24px;
+    text-align: left;
+  }
+  .content-box h2 {
+    font-size: 15px;
+    color: #7d4e00;
+    margin-bottom: 12px;
+  }
+  .content-box pre {
+    white-space: pre-wrap;
+    font-family: Consolas, "Microsoft YaHei", monospace;
+    font-size: 14px;
+    color: #24292f;
+    line-height: 1.7;
+  }
+  .loading { color: #57606a; }
+  .badge {
+    display: inline-block;
+    margin-top: 24px;
+    background: #1f883d;
+    color: #fff;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>你好, Git</h1>
+    <p class="subtitle">本网站由 GitHub Pages 免费托管 · 无服务器部署</p>
+    <div class="flow">
+      <span class="node">我的电脑 push</span> →
+      <span class="node">GitHub 仓库</span> →
+      <span class="node">GitHub Pages 部署</span> →
+      <span class="node">你看到本页面</span>
+    </div>
+    <div class="content-box">
+      <h2>📄 从仓库实时拉取的「学习演示.txt」最新版内容：</h2>
+      <pre id="file-content" class="loading">正在从 GitHub 仓库拉取最新文件...</pre>
+    </div>
+    <span class="badge">✔ 部署成功</span>
+  </div>
+
+<script>
+  // 网页打开时，实时拉取仓库里该文件的最新版本
+  fetch(encodeURI('git适用/学习演示.txt'))
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(t => {
+      const el = document.getElementById('file-content');
+      el.textContent = t;
+      el.classList.remove('loading');
+    })
+    .catch(e => {
+      document.getElementById('file-content').textContent = '拉取失败：' + e.message;
+    });
+</script>
+</body>
+</html>
